@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Website</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="bg-img"></div>
+    <div class="navbar" id="navbar">
+        <div class="logo">
+            <img src="https://gcdnb.pbrd.co/images/96yjXFvNv2e1.png?o=1" alt="Logo">
+        </div>
+        {% if current_user.is_authenticated %}
+            <button class="button" onclick="window.location.href='/dashboard';">Dashboard</button>
+            <form id="logout-form" action="/logout" method="POST">
+                <button type="submit" class="button">Logout</button>
+            </form>
+        {% else %}
+            <button class="button" onclick="showLoginPopup()" style="margin-left: auto; margin-right: 5%;">Login</button>
+            <button class="button" onclick="showRegisterPopup()">Register</button>
+        {% endif %}
+    </div>
+    <div class="title">Tiktok Shop</div>
+    <!-- Login Popup -->
+    <div id="login-popup" class="popup" style="display:none;">
+        <div class="popup-content">
+            <span class="close" onclick="closeLoginPopup()">&times;</span>
+            <h2 style="color: #fff;">Login</h2>
+            <form action="/login" method="POST">
+                <input type="email" id="login-email" name="email" placeholder="Enter your email" required><br>
+                <input type="password" id="login-password" name="password" placeholder="Enter your password" required><br>
+                <button type="submit" class="signup-button">Login</button>
+            </form>
+        </div>
+    </div>
+    <!-- Register Popup -->
+    <div id="register-popup" class="popup" style="display:none;">
+        <div class="popup-content">
+            <span class="close" onclick="closeRegisterPopup()">&times;</span>
+            <h2 style="color: #fff;">Register</h2>
+            <form action="/register" method="POST">
+                <input type="email" id="register-email" name="email" placeholder="Enter your email" required><br>
+                <input type="password" id="register-password" name="password" placeholder="Enter your password" required><br>
+                <button type="submit" class="signup-button">Sign Up</button>
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
